@@ -1,10 +1,12 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Barcode extends MY_Controller {
+class Barcode extends MY_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->database();
         $this->load->model('warehouse/importproduct_model');
@@ -14,25 +16,27 @@ class Barcode extends MY_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data['title'] = 'barcode';
         $this->barcodelayout('warehouse/barcode', $data);
     }
 
-    public function png() {
+    public function png()
+    {
         // Random Number
         $temp = rand(10000, 99999);
 
         $this->set_barcode($_GET['barcode']);
     }
 
-    private function set_barcode($code) {
+    private function set_barcode($code)
+    {
         //load library
         $this->load->library('zend');
-        //load in folder Zend
+        //load in folder Zen
         require_once('./application/libraries/Zend/Barcode.php');
         //generate barcode
         Zend_Barcode::render('code128', 'image', array('text' => $code), array());
     }
-
 }
